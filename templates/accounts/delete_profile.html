@@ -1,0 +1,130 @@
+{% extends 'base.html' %}
+
+{% block title %}
+  Delete Account | WORTHLY
+{% endblock %}
+
+{% block extra_css %}
+  <style>
+    /* ================= DELETE PAGE ================= */
+    
+    .delete-page {
+      min-height: calc(100vh - 70px);
+    
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    
+      padding: 50px 20px;
+    }
+    
+    /* ================= CONFIRMATION CARD ================= */
+    
+    .confirmation-box {
+      width: 100%;
+      max-width: 420px;
+    
+      padding: 40px;
+    
+      background: #ffffff;
+    
+      border-radius: 18px;
+    
+      border: 1px solid #e5e7eb;
+    
+      text-align: center;
+    
+      box-shadow: 0 12px 35px rgba(0, 0, 0, 0.08);
+    }
+    
+    /* ================= HEADING ================= */
+    
+    .confirmation-box h1 {
+      margin: 0 0 12px;
+    
+      color: #111827;
+    
+      font-size: 27px;
+    }
+    
+    /* ================= DESCRIPTION ================= */
+    
+    .confirmation-box p {
+      margin: 0 0 28px;
+    
+      color: #6b7280;
+    
+      line-height: 1.6;
+    
+      font-size: 14px;
+    }
+    
+    /* ================= DELETE BUTTON ================= */
+    
+    .delete-btn {
+      width: 100%;
+    
+      padding: 13px;
+    
+      border: none;
+    
+      border-radius: 9px;
+    
+      background: #d93025;
+    
+      color: #ffffff;
+    
+      font-size: 15px;
+    
+      font-weight: 600;
+    
+      cursor: pointer;
+    
+      transition: background 0.2s, transform 0.1s;
+    }
+    
+    .delete-btn:hover {
+      background: #b42318;
+    }
+    
+    .delete-btn:active {
+      transform: scale(0.99);
+    }
+    
+    /* ================= CANCEL BUTTON ================= */
+    
+    .cancel-btn {
+      display: block;
+    
+      margin-top: 18px;
+    
+      color: #6b7280;
+    
+      font-size: 14px;
+    
+      text-decoration: none;
+    }
+    
+    .cancel-btn:hover {
+      color: #111827;
+    }
+  </style>
+{% endblock %}
+
+{% block content %}
+  <div class="delete-page">
+    <div class="confirmation-box">
+      <h1>Delete Account?</h1>
+
+      <p>Are you sure you want to permanently delete your account?</p>
+
+      <form method="POST">
+        {% csrf_token %}
+
+        <button type="submit" class="delete-btn">Delete My Account</button>
+      </form>
+
+      <a href="{% url 'dashboard' %}" class="cancel-btn">Cancel</a>
+    </div>
+  </div>
+{% endblock %}

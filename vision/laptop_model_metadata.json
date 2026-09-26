@@ -1,0 +1,75 @@
+{
+  "feature_order": [
+    "Company",
+    "TypeName",
+    "Ram",
+    "Weight",
+    "Touchscreen",
+    "Ips",
+    "ppi",
+    "HDD",
+    "SSD",
+    "Cpu brand",
+    "Gpu brand",
+    "os"
+  ],
+  "categorical_options": {
+    "Company": [
+      "Acer",
+      "Apple",
+      "Asus",
+      "Chuwi",
+      "Dell",
+      "Fujitsu",
+      "Google",
+      "HP",
+      "Huawei",
+      "LG",
+      "Lenovo",
+      "MSI",
+      "Mediacom",
+      "Microsoft",
+      "Razer",
+      "Samsung",
+      "Toshiba",
+      "Vero",
+      "Xiaomi"
+    ],
+    "TypeName": [
+      "2 in 1 Convertible",
+      "Gaming",
+      "Netbook",
+      "Notebook",
+      "Ultrabook",
+      "Workstation"
+    ],
+    "Cpu brand": [
+      "AMD Processor",
+      "Intel Core i3",
+      "Intel Core i5",
+      "Intel Core i7",
+      "Other Intel Processor"
+    ],
+    "Gpu brand": [
+      "AMD",
+      "Intel",
+      "Nvidia"
+    ],
+    "os": [
+      "Mac",
+      "Others/No OS/Linux",
+      "Windows"
+    ]
+  },
+  "target": "natural log of Price; apply np.exp(model.predict(...)) to get Price",
+  "evaluation": {
+    "holdout_test_size": 0.15,
+    "random_state": 2,
+    "r2": 0.8898022011859013,
+    "log_mae": 0.15745583543257882,
+    "price_mae": 8934.795527363684
+  },
+  "training_rows": 1302,
+  "sklearn_version": "1.8.0",
+  "pandas_version": "2.2.3"
+}

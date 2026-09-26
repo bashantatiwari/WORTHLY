@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>
+      {% block title %}
+        LapWorth AI
+      {% endblock %}
+    </title>
+
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      
+      body {
+        min-height: 100vh;
+      
+        display: flex;
+        flex-direction: column;
+      
+        font-family: Arial, Helvetica, sans-serif;
+      
+        background: #f5f7fa;
+      
+        color: #111827;
+      }
+      
+      /* ================= HEADER ================= */
+      
+      .header {
+        height: 70px;
+      
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      
+        padding: 0 6%;
+      
+        background: #ffffff;
+      
+        border-bottom: 1px solid #e5e7eb;
+      }
+      
+      .logo {
+        color: #111827;
+      
+        text-decoration: none;
+      
+        font-size: 21px;
+        font-weight: 700;
+      }
+      
+      .nav {
+        display: flex;
+      
+        align-items: center;
+      
+        gap: 24px;
+      }
+      
+      .nav-link {
+        color: #4b5563;
+      
+        text-decoration: none;
+      
+        font-size: 14px;
+      }
+      
+      .nav-link:hover {
+        color: #111827;
+      }
+      
+      .logout-btn {
+        padding: 9px 16px;
+      
+        background: #111827;
+      
+        color: #ffffff;
+      
+        border-radius: 7px;
+      
+        text-decoration: none;
+      
+        font-size: 14px;
+      }
+      
+      .logout-btn:hover {
+        background: #374151;
+      }
+      
+      /* ================= MAIN ================= */
+      
+      main {
+        flex: 1;
+      }
+      
+      /* ================= FOOTER ================= */
+      
+      .footer {
+        padding: 22px 6%;
+      
+        background: #ffffff;
+      
+        border-top: 1px solid #e5e7eb;
+      
+        text-align: center;
+      
+        color: #6b7280;
+      
+        font-size: 13px;
+      }
+    </style>
+
+    <!-- PAGE-SPECIFIC CSS GOES HERE -->
+
+    {% block extra_css %}
+
+    {% endblock %}
+  </head>
+
+  <body>
+    <!-- HEADER -->
+
+    <header class="header">
+      <a href="{% url 'dashboard' %}" class="logo">WORTHLY</a>
+
+      {% if user.is_authenticated %}
+        <nav class="nav">
+          <a href="{% url 'dashboard' %}" class="nav-link">Dashboard</a>
+          <a href="{% url 'predictor' %}" class="nav-link">Predict</a>
+          <a href="{% url 'logout' %}" class="logout-btn">Logout</a>
+        </nav>
+      {% else %}
+        <nav class="nav">
+          <a href="{% url 'login' %}" class="nav-link">Login</a>
+
+          <a href="{% url 'signup' %}" class="logout-btn">Sign Up</a>
+        </nav>
+      {% endif %}
+    </header>
+
+    <!-- PAGE CONTENT -->
+
+    <main>
+      {% block content %}
+
+      {% endblock %}
+    </main>
+
+    <!-- FOOTER -->
+
+    <footer class="footer">
+      <p>© 2026 WORTHLY. All rights reserved.</p>
+    </footer>
+  </body>
+</html>

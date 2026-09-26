@@ -1,0 +1,187 @@
+{% extends 'base.html' %}
+
+{% block title %}
+  Sign Up | WORTHLY
+{% endblock %}
+
+{% block extra_css %}
+  <style>
+    .auth-page {
+      min-height: calc(100vh - 70px);
+    
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    
+      padding: 40px 20px;
+    }
+    
+    .form-box {
+      width: 380px;
+    
+      padding: 35px;
+    
+      background: #ffffff;
+    
+      border-radius: 16px;
+    
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+    }
+    
+    .form-box h1 {
+      margin-bottom: 8px;
+    
+      text-align: center;
+    
+      font-size: 28px;
+    }
+    
+    .subtitle {
+      margin-bottom: 28px;
+    
+      text-align: center;
+    
+      color: #777;
+    
+      font-size: 14px;
+    }
+    
+    label {
+      display: block;
+    
+      margin-bottom: 7px;
+    
+      font-weight: 600;
+    
+      font-size: 14px;
+    }
+    
+    input {
+      width: 100%;
+    
+      padding: 12px;
+    
+      margin-bottom: 18px;
+    
+      border: 1px solid #ddd;
+    
+      border-radius: 8px;
+    
+      font-size: 15px;
+    }
+    
+    input:focus {
+      outline: none;
+    
+      border-color: #555;
+    }
+    
+    .error {
+      color: #d93025;
+    
+      font-size: 13px;
+    
+      margin-top: -12px;
+    
+      margin-bottom: 12px;
+    }
+    
+    button {
+      width: 100%;
+    
+      padding: 12px;
+    
+      border: none;
+    
+      border-radius: 8px;
+    
+      background: #111;
+    
+      color: #ffffff;
+    
+      font-size: 15px;
+    
+      cursor: pointer;
+    }
+    
+    button:hover {
+      background: #333;
+    }
+    
+    .bottom-text {
+      margin-top: 20px;
+    
+      text-align: center;
+    
+      color: #666;
+    
+      font-size: 14px;
+    }
+    
+    .bottom-text a {
+      color: #111;
+    
+      font-weight: 600;
+    
+      text-decoration: none;
+    }
+  </style>
+{% endblock %}
+
+{% block content %}
+  <div class="auth-page">
+    <div class="form-box">
+      <h1>Create Account</h1>
+
+      <p class="subtitle">Create your WORTHLY account</p>
+
+      <form method="POST">
+        {% csrf_token %}
+
+        <label for="username">Username</label>
+
+        <input type="text" id="username" name="username" value="{{ form.username.value|default:'' }}" required />
+
+        {% for error in form.username.errors %}
+          <p class="error">{{ error }}</p>
+        {% endfor %}
+
+        <label for="email">Email</label>
+
+        <input type="email" id="email" name="email" value="{{ form.email.value|default:'' }}" required />
+
+        {% for error in form.email.errors %}
+          <p class="error">{{ error }}</p>
+        {% endfor %}
+
+        <label for="password1">Password</label>
+
+        <input type="password" id="password1" name="password1" required />
+
+        {% for error in form.password1.errors %}
+          <p class="error">{{ error }}</p>
+        {% endfor %}
+
+        <label for="password2">Confirm Password</label>
+
+        <input type="password" id="password2" name="password2" required />
+
+        {% for error in form.password2.errors %}
+          <p class="error">{{ error }}</p>
+        {% endfor %}
+
+        {% for error in form.non_field_errors %}
+          <p class="error">{{ error }}</p>
+        {% endfor %}
+
+        <button type="submit">Create Account</button>
+      </form>
+
+      <p class="bottom-text">
+        Already have an account?
+
+        <a href="{% url 'login' %}">Login</a>
+      </p>
+    </div>
+  </div>
+{% endblock %}

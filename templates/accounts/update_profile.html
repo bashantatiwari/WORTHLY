@@ -1,0 +1,220 @@
+{% extends 'base.html' %}
+
+{% block title %}
+  Update Profile | WORTHLY
+{% endblock %}
+
+{% block extra_css %}
+  <style>
+    /* ================= PROFILE PAGE ================= */
+    
+    .profile-page {
+      min-height: calc(100vh - 70px);
+    
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    
+      padding: 50px 20px;
+    }
+    
+    /* ================= FORM CARD ================= */
+    
+    .form-box {
+      width: 100%;
+      max-width: 420px;
+    
+      padding: 40px;
+    
+      background: #ffffff;
+    
+      border-radius: 18px;
+    
+      border: 1px solid #e5e7eb;
+    
+      box-shadow: 0 12px 35px rgba(0, 0, 0, 0.08);
+    }
+    
+    /* ================= HEADING ================= */
+    
+    .form-box h1 {
+      margin: 0 0 8px;
+    
+      text-align: center;
+    
+      font-size: 27px;
+    
+      color: #111827;
+    }
+    
+    .subtitle {
+      margin: 0 0 30px;
+    
+      text-align: center;
+    
+      color: #6b7280;
+    
+      font-size: 14px;
+    }
+    
+    /* ================= FORM ================= */
+    
+    .form-group {
+      margin-bottom: 20px;
+    }
+    
+    label {
+      display: block;
+    
+      margin-bottom: 8px;
+    
+      color: #374151;
+    
+      font-size: 14px;
+    
+      font-weight: 600;
+    }
+    
+    input {
+      width: 100%;
+    
+      padding: 12px 14px;
+    
+      border: 1px solid #d1d5db;
+    
+      border-radius: 9px;
+    
+      background: #ffffff;
+    
+      color: #111827;
+    
+      font-size: 15px;
+    
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+    
+    input:focus {
+      outline: none;
+    
+      border-color: #111827;
+    
+      box-shadow: 0 0 0 3px rgba(17, 24, 39, 0.08);
+    }
+    
+    /* ================= ERRORS ================= */
+    
+    .error {
+      margin: 7px 0 0;
+    
+      color: #d93025;
+    
+      font-size: 13px;
+    
+      line-height: 1.4;
+    }
+    
+    /* ================= SAVE BUTTON ================= */
+    
+    .save-btn {
+      width: 100%;
+    
+      padding: 13px;
+    
+      margin-top: 5px;
+    
+      border: none;
+    
+      border-radius: 9px;
+    
+      background: #111827;
+    
+      color: #ffffff;
+    
+      font-size: 15px;
+    
+      font-weight: 600;
+    
+      cursor: pointer;
+    
+      transition: background 0.2s, transform 0.1s;
+    }
+    
+    .save-btn:hover {
+      background: #374151;
+    }
+    
+    .save-btn:active {
+      transform: scale(0.99);
+    }
+    
+    /* ================= BACK LINK ================= */
+    
+    .back {
+      display: block;
+    
+      margin-top: 20px;
+    
+      text-align: center;
+    
+      color: #6b7280;
+    
+      font-size: 14px;
+    
+      text-decoration: none;
+    }
+    
+    .back:hover {
+      color: #111827;
+    }
+  </style>
+{% endblock %}
+
+{% block content %}
+  <div class="profile-page">
+    <div class="form-box">
+      <h1>Edit Profile</h1>
+
+      <p class="subtitle">Update your account information</p>
+
+      <form method="POST">
+        {% csrf_token %}
+
+        <!-- USERNAME -->
+
+        <div class="form-group">
+          <label for="username">Username</label>
+
+          <input type="text" id="username" name="username" value="{{ form.username.value|default:'' }}" required />
+
+          {% for error in form.username.errors %}
+            <p class="error">{{ error }}</p>
+          {% endfor %}
+        </div>
+
+        <!-- EMAIL -->
+
+        <div class="form-group">
+          <label for="email">Email</label>
+
+          <input type="email" id="email" name="email" value="{{ form.email.value|default:'' }}" required />
+
+          {% for error in form.email.errors %}
+            <p class="error">{{ error }}</p>
+          {% endfor %}
+        </div>
+
+        <!-- NON-FIELD ERRORS -->
+
+        {% for error in form.non_field_errors %}
+          <p class="error">{{ error }}</p>
+        {% endfor %}
+
+        <!-- SAVE -->
+
+        <button type="submit" class="save-btn">Save Changes</button>
+      </form>
+
+      <a href="{% url 'dashboard' %}" class="back">Back to Dashboard</a>
+    </div>
+  </div>
+{% endblock %}

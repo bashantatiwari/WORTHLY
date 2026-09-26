@@ -1,0 +1,309 @@
+{% extends 'base.html' %}
+{% block title %}Predict | WORTHLY{% endblock %}
+
+{% block extra_css %}
+<style>
+    .predict-shell {
+        width: min(1180px, 92%);
+        margin: 0 auto;
+        padding: 54px 0 70px;
+    }
+
+    /* HERO */
+    .hero {
+        margin-bottom: 32px;
+    }
+
+    .eyebrow {
+        display: inline-flex;
+        padding: 7px 12px;
+        border-radius: 999px;
+        background: #f3f3f3;
+        color: #111;
+        font-size: 12px;
+        font-weight: 800;
+        letter-spacing: .08em;
+        text-transform: uppercase;
+        border: 1px solid #e5e5e5;
+    }
+
+    .hero h1 {
+        font-size: clamp(34px, 5vw, 52px);
+        line-height: 1.05;
+        letter-spacing: -.04em;
+        margin: 16px 0 8px;
+        color: #111;
+    }
+
+    .hero p {
+        color: #666;
+        font-size: 17px;
+        margin: 0;
+    }
+
+    /* LAYOUT */
+    .layout {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) 360px;
+        gap: 24px;
+        align-items: start;
+    }
+
+    .card {
+        background: #fff;
+        border: 1px solid #e5e5e5;
+        border-radius: 20px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, .05);
+    }
+
+    /* FORM */
+    .form-card {
+        padding: 28px;
+    }
+
+    .section-label {
+        font-size: 13px;
+        font-weight: 800;
+        color: #111;
+        margin: 4px 0 16px;
+        text-transform: uppercase;
+        letter-spacing: .08em;
+    }
+
+    .grid {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 18px;
+    }
+
+    .field label {
+        display: block;
+        font-size: 13px;
+        font-weight: 700;
+        margin-bottom: 8px;
+        color: #222;
+    }
+
+    .field input,
+    .field select {
+        width: 100%;
+        padding: 12px 13px;
+        border: 1px solid #d4d4d4;
+        border-radius: 10px;
+        background: #fff;
+        color: #111;
+        font-size: 14px;
+        outline: none;
+        transition: .2s ease;
+    }
+
+    .field input:focus,
+    .field select:focus {
+        border-color: #111;
+        box-shadow: 0 0 0 2px rgba(0, 0, 0, .08);
+    }
+
+    .errors {
+        color: #111;
+        font-size: 12px;
+        margin-top: 5px;
+        font-weight: 600;
+    }
+
+    /* BUTTON */
+    .submit {
+        width: 100%;
+        border: 1px solid #111;
+        border-radius: 11px;
+        padding: 14px 18px;
+        margin-top: 24px;
+        background: #111;
+        color: #fff;
+        font-weight: 800;
+        font-size: 15px;
+        cursor: pointer;
+        transition: .2s ease;
+    }
+
+    .submit:hover {
+        background: #fff;
+        color: #111;
+    }
+
+    /* RESULT */
+    .result-card {
+        padding: 30px;
+        position: sticky;
+        top: 24px;
+        height: max-content;
+        background: #111;
+        color: #fff;
+        border-color: #111;
+        min-height: 180px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+
+    .result-card h2 {
+        font-size: 15px;
+        font-weight: 600;
+        color: #bdbdbd;
+        margin: 0 0 12px;
+    }
+
+    .price {
+        font-size: clamp(38px, 5vw, 52px);
+        font-weight: 900;
+        letter-spacing: -.04em;
+        margin: 0;
+        color: #fff;
+    }
+
+    .divider {
+        height: 1px;
+        background: #e5e5e5;
+        margin: 26px 0;
+    }
+
+    @media (max-width: 850px) {
+        .layout {
+            grid-template-columns: 1fr;
+        }
+
+        .result-card {
+            position: static;
+        }
+    }
+
+    @media (max-width: 560px) {
+        .grid {
+            grid-template-columns: 1fr;
+        }
+
+        .form-card {
+            padding: 20px;
+        }
+
+        .predict-shell {
+            padding-top: 34px;
+        }
+
+        .hero h1 {
+            font-size: 36px;
+        }
+    }
+</style>
+{% endblock %}
+
+
+{% block content %}
+
+<div class="predict-shell">
+
+    <!-- HERO -->
+    <section class="hero">
+
+        <h1>Know Its Worth.</h1>
+
+    </section>
+
+
+    <div class="layout">
+
+        <!-- FORM -->
+        <form method="post" class="card form-card">
+
+            {% csrf_token %}
+
+            {% if form.non_field_errors %}
+                <div class="errors">
+                    {{ form.non_field_errors }}
+                </div>
+            {% endif %}
+
+
+            <div class="section-label">
+                Laptop Basics
+            </div>
+
+            <div class="grid">
+
+                {% for field in form %}
+
+                    {% if forloop.counter == 5 %}
+                        </div>
+
+                        <div class="divider"></div>
+
+                        <div class="section-label">
+                            Display & Hardware
+                        </div>
+
+                        <div class="grid">
+                    {% endif %}
+
+
+                    {% if forloop.counter == 10 %}
+                        </div>
+
+                        <div class="divider"></div>
+
+                        <div class="section-label">
+                            Performance
+                        </div>
+
+                        <div class="grid">
+                    {% endif %}
+
+
+                    <div class="field">
+
+                        <label for="{{ field.id_for_label }}">
+                            {{ field.label }}
+                        </label>
+
+                        {{ field }}
+
+                        {% if field.errors %}
+                            <div class="errors">
+                                {{ field.errors|striptags }}
+                            </div>
+                        {% endif %}
+
+                    </div>
+
+                {% endfor %}
+
+            </div>
+
+
+            <button class="submit" type="submit">
+                Estimate Laptop Price →
+            </button>
+
+        </form>
+
+
+        <!-- PRICE RESULT -->
+        <aside class="card result-card">
+
+            <h2>Estimated Value</h2>
+
+            {% if result %}
+                <div class="price">
+                    Rs. {{ result|floatformat:0 }}
+                </div>
+            {% else %}
+                <div class="price">
+                    Rs. 0
+                </div>
+            {% endif %}
+
+        </aside>
+
+    </div>
+
+</div>
+
+{% endblock %}
